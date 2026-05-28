@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="zh-Hant">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <title>Technical Portfolio | Python Developer</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Montserrat:wght@400;600;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #1a1a1b;
+                --accent: #3498db;
+                --a4w: 794px;
+                --a4h: 1123px;
+            }
+
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                background: var(--bg);
+                overflow: hidden;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+            }
+
+            .container {
+                height: 100vh;
+                overflow-y: scroll;
+                scroll-snap-type: y mandatory;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .section {
+                height: 100vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                scroll-snap-align: start;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .page-wrapper {
+                width: var(--a4w);
+                height: var(--a4h);
+                flex-shrink: 0;
+                background: white;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                transform-origin: center center;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .page-wrapper iframe {
+                width: var(--a4w);
+                height: var(--a4h);
+                border: none;
+                display: block;
+            }
+
+            .loading-placeholder {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #bdc3c7;
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+
+            /* ── 導覽點 ── */
+            .nav-dots {
+                position: fixed;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                z-index: 100;
+            }
+
+            .nav-dot {
+                width: 10px;
+                height: 10px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                cursor: pointer;
+                border: none;
+                transition: 0.3s;
+            }
+
+            .nav-dot:hover,
+            .nav-dot.active {
+                background: var(--accent);
+                transform: scale(1.3);
+            }
+
+            .nav-dot[title]::before {
+                content: attr(title);
+                position: absolute;
+                right: 22px;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 3px 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateX(0);
+                transition: opacity 0.2s;
+            }
+
+            .nav-dot:hover::before {
+                opacity: 1;
+            }
+
+            /* ── Toolbar ── */
+            .toolbar {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 101;
+                display: flex;
+                gap: 10px;
+            }
+
+            .toolbar-btn {
+                background: var(--accent);
+                color: white;
+                border: none;
+                padding: 10px 18px;
+                border-radius: 30px;
+                cursor: pointer;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: 0.3s;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                font-size: 14px;
+                text-decoration: none;
+            }
+
+            .toolbar-btn:hover {
+                background: #2980b9;
+                transform: translateY(-2px);
+            }
+
+            .toolbar-btn.secondary {
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            .toolbar-btn.secondary:hover {
+                background: rgba(255, 255, 255, 0.25);
+            }
+
+            .tip {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                color: rgba(255, 255, 255, 0.4);
+                font-size: 12px;
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            /* ════════════════════════════════
+       專案頁內部 CSS（page3/4/5/6 用）
+    ════════════════════════════════ */
+            .page {
+                width: var(--a4w);
+                height: var(--a4h);
+                background: #fff;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                font-family: "Noto Sans TC", sans-serif;
+            }
+
+            .p-header {
+                padding: 50px 60px 30px;
+                background: #fff;
+                border-bottom: 2px solid #f0f0f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-shrink: 0;
+            }
+
+            .p-title-group {
+                padding-left: 20px;
+                border-left-width: 5px;
+                border-left-style: solid;
+            }
+
+            .p-title {
+                font-family: "Montserrat", sans-serif;
+                font-size: 24px;
+                font-weight: 700;
+                color: #2c3e50;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                line-height: 1;
+            }
+
+            .p-subtitle {
+                font-size: 14px;
+                color: #7f8c8d;
+                margin-top: 5px;
+            }
+
+            .p-num {
+                font-family: "Montserrat", sans-serif;
+                font-size: 52px;
+                font-weight: 900;
+                color: #ecf0f1;
+                line-height: 0.8;
+                letter-spacing: -2px;
+            }
+
+            .p-body {
+                flex: 1;
+                padding: 40px 60px 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 24px;
+                background: #fcfcfc;
+            }
+
+            .proj-name {
+                font-family: "Montserrat", sans-serif;
+                font-size: 30px;
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 5px;
+            }
+
+            .proj-meta {
+                display: flex;
+                gap: 20px;
+                color: #7f8c8d;
+                font-size: 15px;
+                margin-bottom: 5px;
+            }
+
+            .proj-desc {
+                font-size: 15px;
+                color: #444;
+                line-height: 1.75;
+                text-align: justify;
+            }
+
+            .badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                padding: 18px 22px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                border: 1px solid #e9ecef;
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 12.5px;
+                font-weight: 600;
+            }
+
+            .bp {
+                background: #e3f2fd;
+                color: #1565c0;
+                border: 1px solid #bbdefb;
+            }
+
+            .bg {
+                background: #e8f5e9;
+                color: #2e7d32;
+                border: 1px solid #c8e6c9;
+            }
+
+            .bi {
+                background: #e0f7fa;
+                color: #00838f;
+                border: 1px solid #b2ebf2;
+            }
+
+            .bv {
+                background: #f3e5f5;
+                color: #7b1fa2;
+                border: 1px solid #e1bee7;
+            }
+
+            .bw {
+                background: #fff3e0;
+                color: #ef6c00;
+                border: 1px solid #ffe0b2;
+            }
+
+            .bd {
+                background: #eceff1;
+                color: #455a64;
+                border: 1px solid #cfd8dc;
+            }
+
+            .br {
+                background: #ffebee;
+                color: #c62828;
+                border: 1px solid #ffcdd2;
+            }
+
+            .arch {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 15px 0;
+            }
+
+            .arch-line {
+                position: absolute;
+                top: 42px;
+                left: 16%;
+                right: 16%;
+                height: 1px;
+                background: #bdc3c7;
+                z-index: 1;
+            }
+
+            .arch-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                z-index: 2;
+            }
+
+            .arch-circle {
+                width: 55px;
+                height: 55px;
+                background: #fff;
+                border-width: 2px;
+                border-style: solid;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                margin-bottom: 8px;
+            }
+
+            .arch-label {
+                font-size: 13.5px;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .arch-sub {
+                font-size: 11px;
+                color: #7f8c8d;
+                margin-top: 4px;
+                line-height: 1.3;
+            }
+
+            .arch-arrow {
+                position: absolute;
+                top: 36px;
+                color: #bdc3c7;
+                font-size: 12px;
+                z-index: 3;
+                background: #fcfcfc;
+                padding: 0 4px;
+                transform: translateX(-50%);
+            }
+
+            .cards {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 8px;
+                padding: 20px 24px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+                border-left-width: 4px;
+                border-left-style: solid;
+                display: flex;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .card-icon {
+                flex-shrink: 0;
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+            }
+
+            .card-title {
+                font-size: 15.5px;
+                font-weight: 700;
+                color: #2c3e50;
+                display: block;
+                margin-bottom: 6px;
+            }
+
+            .card-desc {
+                font-size: 14px;
+                color: #555;
+                line-height: 1.7;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="toolbar">
+            <a href="print.html" target="_blank" class="toolbar-btn secondary">
+                <i class="fas fa-print"></i> 列印版 / PDF
+            </a>
+        </div>
+        <nav class="nav-dots" id="navDots"></nav>
+        <div class="tip">滾動滑鼠或滑動翻頁</div>
+        <div class="container" id="mainContainer"></div>
+
+        <script src="data/projects.js"></script>
+        <script>
+            // ══════════════════════════════════════════════
+            // 頁面設定：定義 7 頁的順序與類型
+            // type: 'static'  → 載入 pages/ 下的獨立 HTML（用 iframe）
+            // type: 'project' → 從 PROJECTS 資料動態渲染
+            // ══════════════════════════════════════════════
+            const PAGE_CONFIG = [
+                { type: "static", src: "pages/page1.html", label: "封面" },
+                { type: "static", src: "pages/page2.html", label: "技能" },
+                { type: "project", projectIndex: 0, label: "專案 01" }, // 台灣食品營養分析系統
+                { type: "project", projectIndex: 1, label: "專案 02" }, // 台股量化研究系統
+                { type: "project", projectIndex: 2, label: "專案 03" }, // 跨平台影音下載器
+                { type: "project", projectIndex: 3, label: "專案 04" }, // 限時搶購通知機器人
+                {
+                    type: "static",
+                    src: "pages/page7.html",
+                    label: "工作經歷與教育背景",
+                },
+            ];
+
+            // ══════════════════════════════════════════════
+            // 專案頁渲染器
+            // ══════════════════════════════════════════════
+            function renderBadges(badges) {
+                return badges
+                    .map(
+                        (b) =>
+                            `<span class="badge ${b.cls}"><i class="${b.icon}"></i> ${b.label}</span>`,
+                    )
+                    .join("");
+            }
+
+            function renderArch(arch, color, light) {
+                const n = arch.length;
+                const arrows = Array.from(
+                    { length: n - 1 },
+                    (_, i) =>
+                        `<i class="fas fa-chevron-right arch-arrow" style="left:${(((i + 1) / n) * 100).toFixed(2)}%"></i>`,
+                ).join("");
+                const steps = arch
+                    .map(
+                        (s) => `
+        <div class="arch-step" style="width:${(100 / n).toFixed(2)}%">
+          <div class="arch-circle" style="border-color:${color};color:${color};box-shadow:0 4px 6px ${color}1a">
+            <i class="${s.icon}"></i>
+          </div>
+          <div class="arch-label">${s.label}</div>
+          <div class="arch-sub">${s.sub}</div>
+        </div>`,
+                    )
+                    .join("");
+                return `<div class="arch"><div class="arch-line"></div>${arrows}${steps}</div>`;
+            }
+
+            function renderCards(cards, color, light) {
+                return cards
+                    .map(
+                        (c) => `
+        <div class="card" style="border-left-color:${color}">
+          <div class="card-icon" style="background:${light};color:${color}">
+            <i class="${c.icon}"></i>
+          </div>
+          <div>
+            <span class="card-title">${c.title}</span>
+            <div class="card-desc">${c.desc}</div>
+          </div>
+        </div>`,
+                    )
+                    .join("");
+            }
+
+            function renderProjectPage(p) {
+                const role = p.role
+                    ? `<span><i class="fas fa-user-tie"></i> ${p.role}</span>`
+                    : "";
+                return `
+        <div class="page">
+          <div class="p-header">
+            <div class="p-title-group" style="border-left-color:${p.accentColor}">
+              <div class="p-title">Project Experience</div>
+              <div class="p-subtitle">專案經歷詳細說明</div>
+            </div>
+            <div class="p-num">${p.pageNum}</div>
+          </div>
+          <div class="p-body">
+            <section>
+              <div class="proj-name">${p.name}</div>
+              <div class="proj-meta">
+                <span><i class="far fa-calendar-alt"></i> ${p.period}</span>${role}
+              </div>
+              <div class="proj-desc">${p.desc}</div>
+            </section>
+            <div class="badges">${renderBadges(p.badges)}</div>
+            ${renderArch(p.arch, p.accentColor, p.accentLight)}
+            <div class="cards">${renderCards(p.cards, p.accentColor, p.accentLight)}</div>
+          </div>
+        </div>`;
+            }
+
+            // ══════════════════════════════════════════════
+            // 建構所有頁面
+            // ══════════════════════════════════════════════
+            const container = document.getElementById("mainContainer");
+            const navDots = document.getElementById("navDots");
+
+            PAGE_CONFIG.forEach((cfg, i) => {
+                const section = document.createElement("div");
+                section.className = "section";
+                section.id = `section-${i}`;
+
+                const wrapper = document.createElement("div");
+                wrapper.className = "page-wrapper";
+
+                if (cfg.type === "project") {
+                    // 動態渲染
+                    wrapper.innerHTML = renderProjectPage(
+                        PROJECTS[cfg.projectIndex],
+                    );
+                } else {
+                    wrapper.innerHTML = `<div class="loading-placeholder">載入中...</div>`;
+                    fetch(cfg.src)
+                        .then((r) => r.text())
+                        .then((html) => {
+                            const iframe = document.createElement("iframe");
+                            iframe.scrolling = "no";
+                            iframe.srcdoc = html;
+                            wrapper.innerHTML = "";
+                            wrapper.appendChild(iframe);
+                        })
+                        .catch(() => {
+                            wrapper.innerHTML = `<div class="loading-placeholder" style="color:#e74c3c">無法載入 ${cfg.src}</div>`;
+                        });
+                }
+
+                section.appendChild(wrapper);
+                container.appendChild(section);
+
+                // 導覽點
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.title = cfg.label;
+                dot.addEventListener("click", () =>
+                    section.scrollIntoView({ behavior: "smooth" }),
+                );
+                navDots.appendChild(dot);
+            });
+
+            // ══════════════════════════════════════════════
+            // 縮放
+            // ══════════════════════════════════════════════
+            function rescale() {
+                if (window.matchMedia("print").matches) return;
+                const scale = Math.min(
+                    (window.innerWidth * 0.92) / 794,
+                    (window.innerHeight * 0.92) / 1123,
+                );
+                document.querySelectorAll(".page-wrapper").forEach((el) => {
+                    el.style.transform = `scale(${scale})`;
+                });
+            }
+            window.addEventListener("resize", rescale);
+            window.addEventListener("orientationchange", () =>
+                setTimeout(rescale, 200),
+            );
+            rescale();
+
+            // ══════════════════════════════════════════════
+            // 導覽點 active 狀態
+            // ══════════════════════════════════════════════
+            const dots = document.querySelectorAll(".nav-dot");
+            new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            const idx = [...container.children].indexOf(
+                                e.target,
+                            );
+                            dots.forEach((d, i) =>
+                                d.classList.toggle("active", i === idx),
+                            );
+                        }
+                    });
+                },
+                { threshold: 0.5 },
+            ).observe
+                ? (() => {
+                      const obs = new IntersectionObserver(
+                          (entries) => {
+                              entries.forEach((e) => {
+                                  if (e.isIntersecting) {
+                                      const idx = [
+                                          ...container.children,
+                                      ].indexOf(e.target);
+                                      dots.forEach((d, i) =>
+                                          d.classList.toggle(
+                                              "active",
+                                              i === idx,
+                                          ),
+                                      );
+                                  }
+                              });
+                          },
+                          { threshold: 0.5 },
+                      );
+                      document
+                          .querySelectorAll(".section")
+                          .forEach((s) => obs.observe(s));
+                  })()
+                : null;
+        </script>
+    </body>
+</html>

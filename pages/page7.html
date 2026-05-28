@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>工作經歷 - Work Experience</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Montserrat:wght@300;400;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Noto Sans TC", "Montserrat", sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        .slide-container {
+            width: 794px;
+            height: 1123px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .header-section {
+            padding: 40px 60px 20px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-shrink: 0;
+        }
+
+        .page-title-group {
+            border-left: 6px solid #2980b9;
+            padding-left: 20px;
+        }
+
+        .page-title {
+            font-family: "Montserrat", sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 0;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        /* Content Layout */
+        .content-wrapper {
+            flex: 1;
+            padding: 10px 60px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Timeline */
+        .main-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .main-timeline::before {
+            content: "";
+            position: absolute;
+            left: 29px;
+            top: 10px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                    #3498db 0%,
+                    #f39c12 50%,
+                    #e0e0e0 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 50px;
+        }
+
+        .timeline-node {
+            position: absolute;
+            left: -16px;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            background-color: #fff;
+            border: 3px solid #3498db;
+            border-radius: 50%;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3498db;
+            font-size: 14px;
+        }
+
+        .timeline-node.intern {
+            border-color: #f39c12;
+            color: #f39c12;
+        }
+
+        .timeline-node.edu {
+            border-color: #95a5a6;
+            color: #95a5a6;
+        }
+
+        .experience-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #edf2f7;
+            padding: 24px 30px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f8fafc;
+            padding-bottom: 12px;
+        }
+
+        .job-title-text {
+            font-size: 19px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .company-name {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 2px;
+        }
+
+        .job-period {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 300;
+            color: #94a3b8;
+            font-size: 13.5px;
+        }
+
+        .resp-item {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .resp-bullet {
+            color: #3498db;
+            margin-right: 12px;
+            margin-top: 8px;
+            font-size: 7px;
+        }
+
+        .resp-item.intern .resp-bullet {
+            color: #f39c12;
+        }
+
+        .job-tech {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            font-size: 11px;
+            padding: 3px 12px;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tech-tag.highlight {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            border-color: #bee3f8;
+            font-weight: 700;
+        }
+
+        /* Education */
+        .edu-section-container {
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-family: "Montserrat", sans-serif;
+            font-size: 13px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #f1f5f9;
+            margin-left: 20px;
+        }
+
+        .edu-card {
+            background-color: #fff;
+            padding: 22px 30px;
+            border-radius: 12px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .edu-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .edu-school {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .edu-year {
+            font-family: "Montserrat", sans-serif;
+            color: #94a3b8;
+            font-weight: 300;
+            font-size: 13.5px;
+        }
+
+        .closing-section {
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 30px 40px;
+            text-align: center;
+            margin-top: auto;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .closing-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .closing-desc {
+            color: #64748b;
+            font-size: 14.5px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header-section">
+            <div class="page-title-group">
+                <h1 class="page-title">Work Experience & Education</h1>
+                <p class="page-subtitle">工作經歷與教育背景</p>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="timeline-container last">
+                <div class="timeline-line"></div>
+
+                <!-- Job 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-node">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="experience-card">
+                        <div class="job-header">
+                            <div>
+                                <h2 class="job-title-text">
+                                    副工程師
+                                </h2>
+                                <div class="company-name">
+                                    雲馥數位股份有限公司
+                                </div>
+                            </div>
+                            <div class="job-meta">
+                                <span class="job-period">2024/04 – 2024/09</span>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <ul class="resp-list">
+                                <li class="resp-item">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        使用 Python
+                                        開發帳務核對工具，整合多格式帳單與發票資料。
+                                    </p>
+                                </li>
+                                <li class="resp-item">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        使用 Python 合併多份 csv
+                                        並清理指定欄位，提升資料整理效率。
+                                    </p>
+                                </li>
+                                <li class="resp-item">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        設計 Power BI 互動式報表，提升帳務與營運數據查詢效率與資訊透明度。
+                                    </p>
+                                </li>
+                                <li class="resp-item">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        利用 Azure Logic Apps 建立每日自動化
+                                        Email 報表寄送流程。
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="job-tech">
+                            <div class="tech-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">SQL</span>
+                                <span class="tech-tag">Automation</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">Logic Apps</span>
+                                <span class="tech-tag">Pandas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-node intern">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="experience-card">
+                        <div class="job-header">
+                            <div>
+                                <h2 class="job-title-text">
+                                    前端程式設計師 實習
+                                </h2>
+                                <div class="company-name">
+                                    精誠資訊股份有限公司
+                                </div>
+                            </div>
+                            <div class="job-meta">
+                                <span class="job-period">2022/07 – 2023/06</span>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <ul class="resp-list">
+                                <li class="resp-item intern">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        參與核心產品功能開發，實作使用者群組視角切換與
+                                        CSV / PDF 報表匯出功能。
+                                    </p>
+                                </li>
+                                <li class="resp-item intern">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        負責專案除錯，分析並修復程式運行時的異常問題。
+                                    </p>
+                                </li>
+                                <li class="resp-item intern">
+                                    <i class="fas fa-circle resp-bullet"></i>
+                                    <p class="m-0">
+                                        開發 Python
+                                        自動化腳本，擷取檔案資源並自動彙整至
+                                        PPT，提升報告製作效率。
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="job-tech">
+                            <div class="tech-tags">
+                                <span class="tech-tag">Frontend Development</span>
+                                <span class="tech-tag">Automation</span>
+                                <span class="tech-tag">PDF Generation</span>
+                                <span class="tech-tag">PowerPoint Automation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /timeline -->
+
+            <div>
+                <div class="section-label">Education Background</div>
+                <div class="edu-card">
+                    <div class="flex items-center">
+                        <div
+                            class="w-10 h-10 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center text-lg mr-4">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="edu-info">
+                            <h3>輔仁大學 醫學資訊學系</h3>
+                        </div>
+                    </div>
+                    <span class="edu-year">2019/9 – 2023/6</span>
+                </div>
+            </div>
+
+            <!-- Closing / Contact -->
+            <div class="closing-section">
+                <h2 class="closing-title">
+                    Ready to create value through code.
+                </h2>
+                熱衷於將技術應用於解決實際問題，專注於系統設計與自動化流程建置。
+                具備從資料蒐集、後端 API 開發到前端整合的完整實作經驗，
+                期待持續透過實際專案累積開發經驗，深化系統設計與實作能力。
+                </p>
+            </div>
+        </div>
+        <!-- /content-wrapper -->
+    </div>
+</body>
+
+</html>

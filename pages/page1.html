@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Python Developer 求職履歷</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Noto Sans TC", "Montserrat", sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        /* ── A4 容器 ── */
+        .slide-container {
+            width: 794px;
+            height: 1123px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ── Header 背景 ── */
+        .header-bg {
+            background-color: #2c3e50;
+            height: 210px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            border-bottom-right-radius: 120px;
+        }
+
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #3498db;
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+            opacity: 0.15;
+            z-index: 2;
+        }
+
+        /* ── 內容層 ── */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px 35px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-header {
+            color: white;
+            margin-bottom: 55px;
+        }
+
+        .name-title {
+            font-family: "Montserrat", sans-serif;
+            font-size: 46px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .decorative-line {
+            width: 40px;
+            height: 3px;
+            background-color: #e74c3c;
+            margin: 8px 0 10px;
+        }
+
+        .job-title {
+            font-size: 19px;
+            font-weight: 400;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 14px;
+        }
+
+        .domain-tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* ── 內容佈局核心 ── */
+        .main-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .section-title {
+            font-size: 13px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        .summary-block {
+            margin-bottom: 16px;
+        }
+
+        .summary-text {
+            font-size: 13.5px;
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .summary-domain {
+            font-size: 13.5px;
+            line-height: 1.8;
+        }
+
+        .summary-domain strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .projects-block {
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+
+        .project-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .project-row {
+            display: flex;
+            border-left: 3px solid #3498db;
+            padding: 3px 0 3px 15px;
+        }
+
+        .project-num {
+            font-size: 19px;
+            font-weight: 700;
+            color: #3498db;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        .project-name {
+            font-weight: 600;
+            font-size: 14.5px;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+
+        .project-description {
+            font-size: 12.5px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+
+        .project-tag {
+            font-size: 11px;
+            padding: 1px 6px;
+            background: #ebf5fb;
+            color: #2980b9;
+            border-radius: 4px;
+            border: 1px solid #d6eaf8;
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        .contact-section {
+            background-color: #f1f8ff;
+            padding: 18px 25px;
+            border-radius: 12px;
+            border: 1px solid #d0e6ff;
+            margin-top: auto;
+        }
+
+        .contact-label {
+            font-size: 13px;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+            border-left: 3px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .contact-icon {
+            width: 26px;
+            height: 26px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+            }
+
+            .slide-container {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header-bg"></div>
+        <div class="accent-shape"></div>
+        <div class="accent-shape-2"></div>
+
+        <div class="content-wrapper">
+            <div class="profile-header">
+                <p class="name-title">許雅筑</p>
+                <div class="decorative-line"></div>
+                <p class="job-title">PYTHON DEVELOPER</p>
+                <div class="flex gap-2">
+                    <span class="domain-tag"><i class="fas fa-robot mr-2"></i>Bot &amp;
+                        Automation</span>
+                    <span class="domain-tag"><i class="fas fa-database mr-2"></i>Data
+                        Engineering</span>
+                    <span class="domain-tag"><i class="fas fa-layer-group mr-2"></i>Full-Stack</span>
+                    <span class="domain-tag"><i class="fas fa-server mr-2"></i>Backend</span>
+                </div>
+            </div>
+
+            <div class="main-section">
+                <div class="summary-block">
+                    <p class="section-title">
+                        PROFESSIONAL SUMMARY
+                    </p>
+                    <p class="summary-text">
+                        具備 Python 後端開發、資料工程與系統整合經驗，曾獨立完成多個完整系統開發，涵蓋資料蒐集與 ETL Pipeline 建置，以及使用 FastAPI 開發 RESTful
+                        API，完成前後端整合與系統串接。熟悉模組化架構設計，具備 Bot 自動化、網頁爬蟲與資料流程建置能力。
+                    </p>
+                    <div class="summary-domain">
+                        <strong>擅長領域：</strong>
+                        ・Python Backend Development / RESTful API<br />
+                        ・Data Engineering / ETL Pipeline<br />
+                        ・Bot Automation / Web Scraping<br />
+                    </div>
+                </div>
+
+                <div class="projects-block">
+                    <p class="section-title">
+                        PROJECTS
+                    </p>
+
+
+                    <div class="project-rows">
+
+                        <div class="project-row" style="border-left-color: #2e7d32">
+                            <span class="project-num" style="color: #2e7d32">01</span>
+                            <div>
+                                <div class="project-name">
+                                    台灣食品營養分析系統
+                                    <span class="text-gray-400 text-xs ml-2">2026/01 – Present</span>
+                                </div>
+                                <p class="project-description">
+                                    使用 FastAPI、PostgreSQL 與 React 開發食品營養分析平台，整合衛福部食藥署（FDA）公開資料。<br>
+                                     以 NRF 為核心的營養評分模型，結合 NOVA 加工分級與升糖負荷估算，提供食品健康度分析與 Top N 排行榜。<br>
+                                </p>
+                                <div>
+                                    <span class="project-tag"
+                                        style="background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9;">FastAPI</span>
+                                    <span class="project-tag"
+                                        style="background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9;">PostgreSQL</span>
+                                    <span class="project-tag"
+                                        style="background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9;">React</span>
+                                    <span class="project-tag"
+                                        style="background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9;">Gemini
+                                        API</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-row">
+                            <span class="project-num">02</span>
+                            <div>
+                                <div class="project-name">
+                                    台股量化交易系統
+                                    <span class="text-gray-400 text-xs ml-2">2025/05 – Present</span>
+                                </div>
+                                <p class="project-description">
+                                    整合 6 大資料來源，每日自動蒐集台股市場數據並寫入 PostgreSQL。<br>
+                                    透過 Range Partition 按年份分區管理歷史資料，提升特定區間查詢效能。<br>
+                                    設計五層回測框架支援量化策略評估，並以預計算反正規化整合資料表取代逐日 JOIN，解決回測效能瓶頸。
+                                </p>
+                                <div>
+                                    <span class="project-tag">ETL Pipeline</span>
+                                    <span class="project-tag">PostgreSQL Partition</span>
+                                    <span class="project-tag">Polars</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-row" style="border-left-color: #1565c0">
+                            <span class="project-num" style="color: #1565c0">03</span>
+                            <div>
+                                <div class="project-name">
+                                    跨平台影音下載器
+                                    <span class="text-gray-400 text-xs ml-2">2025/02 – 2025/04</span>
+                                </div>
+                                <p class="project-description">
+                                    開發支援 4 個影音平台的下載系統，用 Registry Pattern 來管理不同平台的下載器路由。<br>
+                                    新增平台的時候只需要在組裝元件的地方把它註冊進去就好，不需要動到原本的程式碼。<br>
+                                    Tkinter GUI 和 LINE Bot 共用同一套下載核心，透過callback injection的方式，讓下載邏輯和介面獨立。
+                                </p>
+                                <div>
+                                    <span class="project-tag" style="
+                                                background: #e3f2fd;
+                                                color: #1565c0;
+                                                border-color: #90caf9;
+                                            ">FFmpeg</span>
+                                    <span class="project-tag" style="
+                                                background: #e3f2fd;
+                                                color: #1565c0;
+                                                border-color: #90caf9;
+                                            ">Tkinter GUI</span>
+                                    <span class="project-tag" style="
+                                                background: #e3f2fd;
+                                                color: #1565c0;
+                                                border-color: #90caf9;
+                                            ">LINE Bot</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-row" style="border-left-color: #6a1b9a">
+                            <span class="project-num" style="color: #6a1b9a">04</span>
+                            <div>
+                                <div class="project-name">
+                                    限時搶購通知機器人
+                                    <span class="text-gray-400 text-xs ml-2">2024/11 – 2025/01</span>
+                                </div>
+                                <p class="project-description">
+                                    每小時以 Playwright 爬取電商限時特價商品。<br>
+                                    透過 Telegram Bot 與 Gmail 雙管道定時推播通知，並使用 asyncpg 連線池管理非同步資料存取。
+                                </p>
+                                <div>
+                                    <span class="project-tag" style="
+                                                background: #f3e5f5;
+                                                color: #6a1b9a;
+                                                border-color: #ce93d8;
+                                            ">Playwright</span>
+                                    <span class="project-tag" style="
+                                                background: #f3e5f5;
+                                                color: #6a1b9a;
+                                                border-color: #ce93d8;
+                                            ">Telegram Bot</span>
+                                    <span class="project-tag" style="
+                                                background: #f3e5f5;
+                                                color: #6a1b9a;
+                                                border-color: #ce93d8;
+                                            ">Gmail SMTP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-section">
+                    <span class="contact-label">聯絡資訊 / CONTACT</span>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fab fa-github"></i></div>
+                            <span class="font-medium">
+                                <a href="https://github.com/93Alice" target="_blank">github.com/93Alice</a>
+                            </span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <span class="font-medium">
+                                <a href="mailto:93alicehsu@gmail.com">93alicehsu@gmail.com</a>
+                            </span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <span class="font-medium">Taiwan, Taipei</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 300px;
+                    height: 10px;
